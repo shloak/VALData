@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <script src="//www.parsecdn.com/js/parse-1.6.7.min.js"></script>
+    </head>
+    <body onload = "initial()"> 
+<table>
+    <tr>
+        <td align="center" valign="center">
+            <img id = "img_1" width="200px" /> 
+            <p id = "cap_1"></p>
+            <img id = "img_2" width="200px" />
+            <p id = "cap_2"></p>
+            <img id = "img_3" width="200px"  />
+            <p id = "cap_3"></p>
+            <img id = "img_4" width="200px" />
+            <p id = "cap_4" ></p> 
+        </td>
+        <td align="center" valign="center">
+            <img id = "img_5" width="200px"/>
+            <p id = "cap_5"></p>
+            <img id = "img_6" width="200px" />
+            <p id = "cap_6"></p>
+            <img id = "img_7" width="200px" />
+            <p id = "cap_7"></p>
+            <img id = "img_8" width="200px" />
+            <p id = "cap_8" ></p>
+        </td>
+        <td align="center" valign="center">
+            <img id = "img_9" width="200px" />
+            <p id = "cap_9"></p>
+            <img id = "img_10" width="200px"  />
+            <p id = "cap_10"></p>
+            <img id = "img_11" width="200px"  />
+            <p id = "cap_11"></p>
+            <img id = "img_12" width="200px"  />
+            <p id = "cap_12" ></p>
+        </td>
+        <td align="center" valign="center">
+            <img id = "img_13" width="200px"  />
+            <p id = "cap_13"></p>
+            <img id = "img_14" width="200px"  />
+            <p id = "cap_14"></p>
+            <img id = "img_15" width="200px"  />
+            <p id = "cap_15"></p>
+            <img id = "img_16" width="200px"  />
+            <p id = "cap_16" ></p>
+        </td>
+        <td align="center" valign="center">
+            <img id = "img_17"  width="200px" />
+            <p id = "cap_17"></p>
+            <img id = "img_18"  width="200px" />
+            <p id = "cap_18"></p>
+            <img id = "img_19" width="200px" />
+            <p id = "cap_19"></p>
+            <img id = "img_20" width="200px"  />
+            <p id = "cap_20" ></p>
+        </td>
+        
+
+    </tr>
+</table>
+    <button onclick="generate()">Next</button>
+    </body>
+    
+    <script> 
+        Parse.initialize("p4tWFy9DoQKEKAxKNycBu3QH6htzRcZDzMw1ywFa", "kg3IFa5DBIGXraX5hegFsSM29giG1btPM3wUvxpN");
+        var array = ["1", "44474", "210751"];
+        var arrayObjects;
+        //var current = 0;
+        var counter = 0;
+        
+        function ParseStuff()
+        {
+            var ImageDescrip = Parse.Object.extend("ImageDescrip");
+            var query = new Parse.Query(ImageDescrip);
+            query.notEqualTo("tag", "none");
+            query.limit(500);
+            query.find({
+              success: function(results) {
+                alert("Successfully retrieved " + results.length + " objects.");
+                // Do something with the returned Parse.Object values
+                arrayObjects = results.slice(0);
+                //for (var i = 0; i < 5; i++) {
+                  //arrayObjects[i] = results[i];
+                  //alert(object.id + ' - ' + object.get('tag'));
+                  //document.getElementById("cap_20").innerHTML = object.get("tag");
+                //}
+              },
+              error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+              }
+            });
+        }
+        function generate()
+        {
+            for (var i = 1; i <= 20; i++)
+                {
+                    var x = document.getElementById("img_" + i);
+                    x.src = ("http://mscoco.org/images/" + arrayObjects[counter].get("imageId"));
+                    var y = document.getElementById("cap_" + i);
+                    y.innerHTML = arrayObjects[counter].get("tag");
+                    counter = (counter+1) % arrayObjects.length;
+                }
+        }
+        function nextButton()
+        {
+            //ParseStuff();
+            //current = ((current+1) % array.length);
+            generate();
+        }
+        
+        function initial()
+        {
+            ParseStuff();
+            generate();
+        }
+    </script>
+</html>
