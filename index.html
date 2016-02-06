@@ -71,9 +71,9 @@
         
         function ParseStuff()
         {
-            var ImageDescrip = Parse.Object.extend("ImageDescrip");
-            var query = new Parse.Query(ImageDescrip);
-            query.notEqualTo("tag", "none");
+            var VALData = Parse.Object.extend("VALData");
+            var query = new Parse.Query(VALData);
+            query.exists("tag");
             query.limit(500);
             query.find({
               success: function(results) {
